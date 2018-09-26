@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<style>
+    li{
+        padding-bottom: 4mm;
+    }
+</style>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static/scripts.js"></script>
+<script>
+    function validateRegistration() {
+        let username=document.getElementsByName('identifier');
+        if(hasBadWords(username.value))
+        {
+            $("#errors").html('Found swearing in username');
+            return false;
+        }
+        let p1=document.getElementById("password");
+        let p2=document.getElementById("repeated password");
+        if(p1.value!==p2.value)
+        {
+            $("#errors").html("Passwords don't match");
+            return false;
+        }
+        return true
+    }
+</script>
+
+<form action="checkidentity.php" method="post" onsubmit="return validateRegistration()">
+    <ul class="list-no-markers">
+        <li><input type="text" placeholder="Identifier" name="identifier" required></li>
+        <li><input type="email" placeholder="Email" name="email" pattern="^\S+@\S+\.{1,1}\S+$" required></li>
+        <li><input type="password" placeholder="Password (at least 8 chars)" id="password" pattern="\S{8,256}" name="password" required></li>
+        <li><input type="password" placeholder="Repeated password" id="repeated password" required></li>
+        <li><input type="submit" value="Register"></li>
+    </ul>
+</form>
+
+<label id="errors"></label>
+</body>
+
+</html>
